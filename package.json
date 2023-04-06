@@ -1,62 +1,53 @@
 {
   "name": "vite-plugin-localization-checker",
   "version": "0.0.1",
+  "license": "MIT",
+  "author": "Philipp Minder <philipp.minder@hotmail.com>",
+  "files": [
+    "dist"
+  ],
   "description": "",
-  "type": "module",
-  "packageManager": "pnpm@8.1.1",
   "keywords": [
     "vite",
     "vite-plugin"
   ],
-  "homepage": "https://github.com/Niiidro/vite-plugin-localization-checker#readme",
-  "bugs": "https://github.com/Niiidro/vite-plugin-localization-checker/issues",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild && pnpm run patch-cjs",
+    "patch-cjs": "tsx ../../scripts/patchCJS.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Niiidro/vite-plugin-localization-checker.git"
   },
-  "license": "MIT",
-  "author": "Philipp Minder <philipp.minder@hotmail.com>",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
+  "bugs": {
+    "url": "https://github.com/Niiidro/vite-plugin-localization-checker/issues"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean ",
-    "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
-    "dev": "npm run build -- --watch",
-    "example:build": "cp README.md example/README.md && npm -C example run build",
-    "example:dev": "cp README.md example/README.md && npm -C example run dev",
-    "lint": "run-p lint:*",
-    "lint:src": "eslint src/**/*.ts --fix",
-    "lint:test": "eslint test/**/*.ts --fix",
-    "lint:tsc": "tsc --noEmit",
-    "lint:node": "tsup src/index.ts --format=esm && node dist/index.js",
-    "audit:fix": "pnpm audit --fix && pnpm install",
-    "release": "run-s audit:fix lint release:bumpp",
-    "release:bumpp": "bumpp",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
-    "test:update": "vitest -u",
-    "test:component": "npx cypress open-ct -p 4000"
-  },
+  "homepage": "https://github.com/Niiidro/vite-plugin-localization-checker#readme",
   "dependencies": {
-    "glob": "^9.3.4"
+    "glob": "^9.3.4",
+    "tsx": "^3.12.6"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",
     "@types/node": "^18.15.11",
     "tsup": "^6.7.0",
     "typescript": "^5.0.3",
+    "unbuild": "^1.2.0",
     "vite": "^4.2.1",
     "vite-plugin-inspect": "^0.7.19"
   }
